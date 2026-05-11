@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartLoan | AI Credit Engine</title>
+    <!-- Linking the professional CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>SmartLoan AI</h2>
+        <span class="sub-header">Automated Eligibility Engine</span>
+        
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label>Applicant Gender</label>
+                <select name="Gender">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Marital Status</label>
+                <select name="Married">
+                    <option value="1">Married</option>
+                    <option value="0">Single / Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Education Status</label>
+                <select name="Education">
+                    <option value="1">Graduate</option>
+                    <option value="0">Undergraduate</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Monthly Gross Income (USD)</label>
+                <input type="number" name="Income" placeholder="e.g. 4500" required>
+            </div>
+
+            <div class="form-group">
+                <label>Credit History Score</label>
+                <select name="Credit_History">
+                    <option value="1">Satisfactory (No Recent Defaults)</option>
+                    <option value="0">Unsatisfactory (History of Defaults)</option>
+                </select>
+            </div>
+
+            <button type="submit">Run AI Prediction</button>
+        </form>
+
+        {% if prediction_text %}
+            <!-- Enhanced result feedback with neon borders -->
+            <div class="result-card {% if 'Approved' in prediction_text %}approved{% else %}rejected{% endif %}">
+                {{ prediction_text }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
